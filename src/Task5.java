@@ -1,4 +1,4 @@
-class Counter {
+class Counter3 {
     private int count = 0;
 
     public void increment() {
@@ -10,25 +10,25 @@ class Counter {
     }
 }
 
-class ThreadDemo2 extends Thread {
-    Counter counter;
+class ThreadDemo3 extends Thread {
+    Counter3 counter;
 
-    ThreadDemo2(Counter counter) {
+    ThreadDemo3(Counter3 counter) {
         this.counter = counter;
     }
 
     public void run() {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10; i++) {
             counter.increment();
         }
     }
 }
 
-public class Main {
+public class Task5 {
     public static void main(String[] args) {
-        Counter counter = new Counter();
-        ThreadDemo2 t1 = new ThreadDemo2(counter);
-        ThreadDemo2 t2 = new ThreadDemo2(counter);
+        Counter3 counter = new Counter3();
+        ThreadDemo3 t1 = new ThreadDemo3(counter);
+        ThreadDemo3 t2 = new ThreadDemo3(counter);
 
         t1.start();
         t2.start();
