@@ -13,3 +13,4 @@ public class Square extends Shape {
         excalidrawAPI.drawSquare(s);
     }
 }
+
