@@ -1,28 +1,53 @@
-class Resource {
-    synchronized void method1(Resource r) {
-        System.out.println(Thread.currentThread().getName() + " is executing method1");
-        try { Thread.sleep(100); } catch (InterruptedException e) {}
-        r.method2(this);
-        System.out.println("End of method1");
-    }
+import java.util.*;
 
-    synchronized void method2(Resource r) {
-        System.out.println(Thread.currentThread().getName() + " is executing method2");
-        try { Thread.sleep(100); } catch (InterruptedException e) {}
-        r.method1(this);
-        System.out.println("End of method2");
+class Node {
+    int key;
+    Node left, right;
+
+    public Node(int key)
+    {
+        this.key = key;
+        left = right = null;
     }
 }
 
-public class Task10 {
-    public static void main(String[] args) {
-        final Resource r1 = new Resource();
-        final Resource r2 = new Resource();
+class BinaryTreeCornerNodes {
+    Node root;
 
-        Thread t1 = new Thread(() -> r1.method1(r2), "Thread-1");
-        Thread t2 = new Thread(() -> r2.method1(r1), "Thread-2");
+    void printCorner(Node root) {
+        Queue<Node> q = new LinkedList<Node>();
 
-        t1.start();
-        t2.start();
+        q.add(root);
+        // level order traversal
+        while (!q.isEmpty()) {
+            int n = q.size();
+            for(int i = 0 ; i < n ; i++){
+                Node temp = q.peek();
+                q.poll();// retrieve and remove the node
+
+                if(i==0 || i==n-1)
+                    System.out.print(temp.key + "  ");
+
+                if (temp.left != null)
+                    q.add(temp.left);
+                if (temp.right != null)
+                    q.add(temp.right);
+            }
+            System.out.println();
+        }
+
+    }
+
+    public static void main(String[] args){
+        BinaryTreeCornerNodes tree = new BinaryTreeCornerNodes();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+        tree.root.right.left = new Node(6);
+        tree.root.right.right = new Node(7);
+
+        tree.printCorner(tree.root);
     }
 }

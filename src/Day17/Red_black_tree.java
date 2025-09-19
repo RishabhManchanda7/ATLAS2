@@ -1,5 +1,6 @@
 package Day17;
 
+
 class Red_black_tree {
     private static final boolean RED = true;
     private static final boolean BLACK = false;
